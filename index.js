@@ -404,8 +404,6 @@ app.get("/stream-token", (req, res) => {
     }
 });
 
-app.listen(3000, () => console.log("✅ Server running on port 3000"));
-
 app.get("/", (req, res) => {
     res.status(200).json({ message: "Booking API is running" });
 });
