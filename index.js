@@ -1,7 +1,8 @@
-let express = require("express");
+import express from "express";
 let path = require("path");
-const cors = require("cors");
-const { Pool } = require("pg");
+import cors from "cors";
+import pkg from "pg";
+const { Pool } = pkg;
 const { DATABASE_URL, SECRET_KEY } = process.env;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -409,4 +410,4 @@ app.get("/", (req, res) => {
     res.status(200).json({ message: "Booking API is running" });
 });
 
-module.exports = app;
+export default app;
