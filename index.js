@@ -5,6 +5,7 @@ const { Pool } = require("pg");
 const { DATABASE_URL, SECRET_KEY } = process.env;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { getStreamToken } = require("./streamToken");
 require("dotenv").config();
 
 let app = express();
@@ -387,6 +388,22 @@ app.put("/bookings/:id", async (req, res) => {
         client.release();
     }
 });
+
+// Add Stream Chat token endpoint
+
+app.get("/", (req, res) => res.send("Server running!"));
+
+app.get("/stream-token", (req, res) => {
+    try {
+        const { userId } = req.query;
+        const token = getStreamToken(userId);
+        res.json({ token });
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+});
+
+app.listen(3000, () => console.log("✅ Server running on port 3000"));
 
 app.get("/", (req, res) => {
     res.status(200).json({ message: "Booking API is running" });
